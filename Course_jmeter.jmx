@@ -138,12 +138,6 @@
           </RegexExtractor>
           <hashTree/>
         </hashTree>
-        <DebugSampler guiclass="TestBeanGUI" testclass="DebugSampler" testname="Debug Sampler" enabled="false">
-          <boolProp name="displayJMeterProperties">true</boolProp>
-          <boolProp name="displayJMeterVariables">true</boolProp>
-          <boolProp name="displaySystemProperties">true</boolProp>
-        </DebugSampler>
-        <hashTree/>
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="/login POST" enabled="true">
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true">
             <collectionProp name="Arguments.arguments">
@@ -222,13 +216,17 @@ props.put(&quot;sessions_array&quot;, sessions_array);
 //props.put(&quot;session_id&quot;, vars.get(&quot;session&quot;));</stringProp>
           </BeanShellPostProcessor>
           <hashTree/>
+          <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="JSR223 PostProcessor" enabled="true">
+            <stringProp name="cacheKey"></stringProp>
+            <stringProp name="filename"></stringProp>
+            <stringProp name="parameters"></stringProp>
+            <stringProp name="script">ArrayList sessions_array = new ArrayList();
+sessions_array.add(vars.get(&quot;session&quot;));
+props.put(&quot;sessions_array&quot;, sessions_array);</stringProp>
+            <stringProp name="scriptLanguage">java</stringProp>
+          </JSR223PostProcessor>
+          <hashTree/>
         </hashTree>
-        <DebugSampler guiclass="TestBeanGUI" testclass="DebugSampler" testname="Debug Sampler" enabled="false">
-          <boolProp name="displayJMeterProperties">true</boolProp>
-          <boolProp name="displayJMeterVariables">true</boolProp>
-          <boolProp name="displaySystemProperties">true</boolProp>
-        </DebugSampler>
-        <hashTree/>
       </hashTree>
       <kg.apc.jmeter.threads.SteppingThreadGroup guiclass="kg.apc.jmeter.threads.SteppingThreadGroupGui" testclass="kg.apc.jmeter.threads.SteppingThreadGroup" testname="jp@gc - Stepping Thread Group" enabled="false">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
@@ -7480,7 +7478,7 @@ vars.put(&quot;test&quot;, response);
         <stringProp name="ThreadGroup.delay"></stringProp>
       </ThreadGroup>
       <hashTree>
-        <CookieManager guiclass="CookiePanel" testclass="CookieManager" testname="HTTP Cookie Manager" enabled="true">
+        <CookieManager guiclass="CookiePanel" testclass="CookieManager" testname="HTTP Cookie Manager" enabled="false">
           <collectionProp name="CookieManager.cookies"/>
           <boolProp name="CookieManager.clearEachIteration">false</boolProp>
         </CookieManager>
@@ -7498,11 +7496,6 @@ vars.put(&quot;test&quot;, response);
           <stringProp name="ConstantTimer.delay">500</stringProp>
           <stringProp name="RandomTimer.range">2000</stringProp>
         </UniformRandomTimer>
-        <hashTree/>
-        <IfController guiclass="IfControllerPanel" testclass="IfController" testname="If Controller" enabled="false">
-          <stringProp name="IfController.condition"></stringProp>
-          <boolProp name="IfController.evaluateAll">false</boolProp>
-        </IfController>
         <hashTree/>
         <ThroughputController guiclass="ThroughputControllerGui" testclass="ThroughputController" testname="Admin Area = 5%" enabled="false">
           <intProp name="ThroughputController.style">1</intProp>
@@ -8936,7 +8929,10 @@ vars.put(&quot;test_complaint&quot;, response);</stringProp>
               <stringProp name="cacheKey">bb4e7913-adce-4d82-939f-90a5cd230008</stringProp>
               <stringProp name="filename"></stringProp>
               <stringProp name="parameters"></stringProp>
-              <stringProp name="script">BufferedReader reader = new BufferedReader(new FileReader(&quot;C:/Users/amamchuk/Desktop/Архив (3)/Jmeter_course/users.csv&quot;));
+              <stringProp name="script">//BufferedReader reader = new BufferedReader(new FileReader(&quot;C:/Users/amamchuk/Desktop/Архив (3)/Jmeter_course/users.csv&quot;));
+
+BufferedReader reader = new BufferedReader(new FileReader(&quot;/Users/macchook/Desktop/Version/Jmeter_course/users.csv&quot;));
+
 int counter = 0; 
 
 ArrayList creds = new ArrayList();
@@ -8954,30 +8950,24 @@ props.put(&quot;creds&quot;, creds);</stringProp>
               <stringProp name="scriptLanguage">java</stringProp>
             </JSR223Sampler>
             <hashTree/>
-            <DebugSampler guiclass="TestBeanGUI" testclass="DebugSampler" testname="Debug Sampler" enabled="false">
-              <boolProp name="displayJMeterProperties">true</boolProp>
-              <boolProp name="displayJMeterVariables">true</boolProp>
-              <boolProp name="displaySystemProperties">true</boolProp>
-            </DebugSampler>
-            <hashTree/>
           </hashTree>
           <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="User Area" enabled="true">
             <boolProp name="TransactionController.includeTimers">false</boolProp>
             <boolProp name="TransactionController.parent">false</boolProp>
           </TransactionController>
           <hashTree>
-            <BeanShellPreProcessor guiclass="TestBeanGUI" testclass="BeanShellPreProcessor" testname="BeanShell PreProcessor" enabled="true">
-              <boolProp name="resetInterpreter">false</boolProp>
+            <JSR223PreProcessor guiclass="TestBeanGUI" testclass="JSR223PreProcessor" testname="JSR223 PreProcessor" enabled="true">
+              <stringProp name="scriptLanguage">java</stringProp>
               <stringProp name="parameters"></stringProp>
               <stringProp name="filename"></stringProp>
+              <stringProp name="cacheKey">ec02baf0-b080-406f-acc2-c194e0383bec</stringProp>
               <stringProp name="script">import org.apache.jmeter.protocol.http.control.CookieManager;
 import org.apache.jmeter.protocol.http.control.Cookie;
 import java.util.Random;
 
-
 int creds_elem = (int) (Math.random() * 9);
 String credential = props.get(&quot;creds&quot;).get(creds_elem);
-//props.put(&quot;credential&quot;, credential);
+
 String[] arrayMessage = credential.split(&quot;;&quot;);
 vars.put(&quot;new_id&quot;, arrayMessage[0]);
 vars.put(&quot;new_login&quot;, arrayMessage[1]);
@@ -8987,23 +8977,16 @@ int sess_size = props.get(&quot;sessions_array&quot;).size();
 props.put(&quot;sess_size&quot;, sess_size);
 
 int sessions_array_elem = (int) (Math.random() * sess_size);
-//props.put(&quot;sessions_array_elem&quot;, sessions_array_elem);
-//String sess_id = props.get(&quot;sessions_array&quot;).get(sessions_array_elem);
 
 String sess_for_remove = props.get(&quot;sessions_array&quot;).get(sessions_array_elem);
 vars.put(&quot;sess_for_remove&quot;, sess_for_remove);
 
 CookieManager manager = sampler.getCookieManager();
 Cookie cookie = new Cookie(&quot;PHPSESSID&quot;,vars.get(&quot;sess_for_remove&quot;),&quot;192.168.160.93&quot;,&quot;/&quot;,false,0);
-//Cookie cookie = new Cookie(&quot;PHPSESSID&quot;,sess_for_remove,&quot;192.168.160.93&quot;,&quot;/&quot;,false,0);
-//Cookie cookie = new Cookie(&quot;PHPSESSID&quot;,props.get(&quot;sessions_array&quot;).get(sessions_array_elem),&quot;192.168.160.93&quot;,&quot;/&quot;,false,0);
-//Cookie cookie = new Cookie(&quot;PHPSESSID&quot;,props.get(&quot;session_id&quot;),&quot;192.168.160.93&quot;,&quot;/&quot;,false,0);
-manager.add(cookie);
-
-//vars.put(&quot;sess_for_remove&quot;, sess_for_remove);</stringProp>
-            </BeanShellPreProcessor>
+manager.add(cookie);</stringProp>
+            </JSR223PreProcessor>
             <hashTree/>
-            <CookieManager guiclass="CookiePanel" testclass="CookieManager" testname="HTTP Cookie Manager" enabled="false">
+            <CookieManager guiclass="CookiePanel" testclass="CookieManager" testname="HTTP Cookie Manager" enabled="true">
               <collectionProp name="CookieManager.cookies"/>
               <boolProp name="CookieManager.clearEachIteration">false</boolProp>
             </CookieManager>
@@ -9024,23 +9007,6 @@ manager.add(cookie);
               <stringProp name="HTTPSampler.concurrentPool">4</stringProp>
             </ConfigTestElement>
             <hashTree/>
-            <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="users_datasource" enabled="false">
-              <stringProp name="delimiter">;</stringProp>
-              <stringProp name="fileEncoding"></stringProp>
-              <stringProp name="filename">${__BeanShell(import org.apache.jmeter.services.FileServer; FileServer.getFileServer().getBaseDir();)}${__BeanShell(File.separator,)}users.csv</stringProp>
-              <boolProp name="quotedData">false</boolProp>
-              <boolProp name="recycle">true</boolProp>
-              <stringProp name="shareMode">shareMode.all</stringProp>
-              <boolProp name="stopThread">false</boolProp>
-              <stringProp name="variableNames">userId,userName,userPass</stringProp>
-            </CSVDataSet>
-            <hashTree/>
-            <DebugSampler guiclass="TestBeanGUI" testclass="DebugSampler" testname="Debug Sampler" enabled="false">
-              <boolProp name="displayJMeterProperties">true</boolProp>
-              <boolProp name="displayJMeterVariables">true</boolProp>
-              <boolProp name="displaySystemProperties">true</boolProp>
-            </DebugSampler>
-            <hashTree/>
             <ThroughputController guiclass="ThroughputControllerGui" testclass="ThroughputController" testname="UA_login = 10%" enabled="true">
               <intProp name="ThroughputController.style">1</intProp>
               <boolProp name="ThroughputController.perThread">false</boolProp>
@@ -9057,16 +9023,17 @@ manager.add(cookie);
                 <boolProp name="TransactionController.includeTimers">false</boolProp>
               </TransactionController>
               <hashTree>
-                <BeanShellPreProcessor guiclass="TestBeanGUI" testclass="BeanShellPreProcessor" testname="BeanShell PreProcessor" enabled="true">
-                  <boolProp name="resetInterpreter">false</boolProp>
+                <JSR223PreProcessor guiclass="TestBeanGUI" testclass="JSR223PreProcessor" testname="JSR223 PreProcessor" enabled="true">
+                  <stringProp name="scriptLanguage">java</stringProp>
                   <stringProp name="parameters"></stringProp>
                   <stringProp name="filename"></stringProp>
+                  <stringProp name="cacheKey">5536f3fe-c521-4b68-9645-4adc6c22016a</stringProp>
                   <stringProp name="script">import org.apache.jmeter.protocol.http.control.CookieManager;
 import org.apache.jmeter.protocol.http.control.Cookie;
 CookieManager manager = sampler.getCookieManager();
 Cookie cookie = new Cookie(&quot;PHPSESSID&quot;,null,&quot;192.168.160.93&quot;,&quot;/&quot;,false,0);
 manager.add(cookie);</stringProp>
-                </BeanShellPreProcessor>
+                </JSR223PreProcessor>
                 <hashTree/>
                 <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="/login" enabled="true">
                   <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true">
@@ -9187,145 +9154,16 @@ manager.add(cookie);</stringProp>
                     </collectionProp>
                   </HeaderManager>
                   <hashTree/>
-                  <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="Regular Expression Extractor" enabled="false">
-                    <stringProp name="RegexExtractor.useHeaders">request_headers</stringProp>
-                    <stringProp name="RegexExtractor.refname">session</stringProp>
-                    <stringProp name="RegexExtractor.regex">PHPSESSID=(\w+)?</stringProp>
-                    <stringProp name="RegexExtractor.template">$1$</stringProp>
-                    <stringProp name="RegexExtractor.default"></stringProp>
-                    <stringProp name="RegexExtractor.match_number">1</stringProp>
-                    <boolProp name="RegexExtractor.default_empty_value">true</boolProp>
-                  </RegexExtractor>
-                  <hashTree/>
-                  <BeanShellPostProcessor guiclass="TestBeanGUI" testclass="BeanShellPostProcessor" testname="BeanShell PostProcessor" enabled="false">
-                    <boolProp name="resetInterpreter">false</boolProp>
+                  <JSR223PreProcessor guiclass="TestBeanGUI" testclass="JSR223PreProcessor" testname="JSR223 PreProcessor" enabled="true">
+                    <stringProp name="scriptLanguage">java</stringProp>
                     <stringProp name="parameters"></stringProp>
                     <stringProp name="filename"></stringProp>
-                    <stringProp name="script">import java.util.Random;
-
-String[] arr = props.getObject(&quot;session_array&quot;);
-String new_str= vars.get(&quot;session&quot;);
-int random_number = (int) (Math.random() * 10);
-a[random_number] = new_str;
-props.putObject(&quot;session_array&quot;, arr);</stringProp>
-                  </BeanShellPostProcessor>
-                  <hashTree/>
-                  <BeanShellPreProcessor guiclass="TestBeanGUI" testclass="BeanShellPreProcessor" testname="BeanShell PreProcessor" enabled="true">
-                    <boolProp name="resetInterpreter">false</boolProp>
-                    <stringProp name="parameters"></stringProp>
-                    <stringProp name="filename"></stringProp>
-                    <stringProp name="script">//props.put(&quot;session_id&quot;, vars.get(&quot;session&quot;));
-
-props.get(&quot;sessions_array&quot;).add(vars.get(&quot;session&quot;));</stringProp>
-                  </BeanShellPreProcessor>
-                  <hashTree/>
-                </hashTree>
-                <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="/login POST" enabled="false">
-                  <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true">
-                    <collectionProp name="Arguments.arguments">
-                      <elementProp name="login" elementType="HTTPArgument">
-                        <boolProp name="HTTPArgument.always_encode">true</boolProp>
-                        <stringProp name="Argument.name">login</stringProp>
-                        <stringProp name="Argument.value">${userName}</stringProp>
-                        <stringProp name="Argument.metadata">=</stringProp>
-                        <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                      </elementProp>
-                      <elementProp name="password" elementType="HTTPArgument">
-                        <boolProp name="HTTPArgument.always_encode">true</boolProp>
-                        <stringProp name="Argument.name">password</stringProp>
-                        <stringProp name="Argument.value">${userPass}</stringProp>
-                        <stringProp name="Argument.metadata">=</stringProp>
-                        <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                      </elementProp>
-                    </collectionProp>
-                  </elementProp>
-                  <stringProp name="HTTPSampler.domain"></stringProp>
-                  <stringProp name="HTTPSampler.port"></stringProp>
-                  <stringProp name="HTTPSampler.connect_timeout"></stringProp>
-                  <stringProp name="HTTPSampler.response_timeout"></stringProp>
-                  <stringProp name="HTTPSampler.protocol"></stringProp>
-                  <stringProp name="HTTPSampler.contentEncoding">UTF-8</stringProp>
-                  <stringProp name="HTTPSampler.path">/login</stringProp>
-                  <stringProp name="HTTPSampler.method">POST</stringProp>
-                  <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-                  <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-                  <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-                  <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-                  <boolProp name="HTTPSampler.image_parser">true</boolProp>
-                  <boolProp name="HTTPSampler.concurrentDwn">true</boolProp>
-                  <stringProp name="HTTPSampler.concurrentPool">12</stringProp>
-                  <boolProp name="HTTPSampler.monitor">false</boolProp>
-                  <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
-                  <stringProp name="TestPlan.comments">Detected the start of a redirect chain</stringProp>
-                </HTTPSamplerProxy>
-                <hashTree>
-                  <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager" enabled="true">
-                    <collectionProp name="HeaderManager.headers">
-                      <elementProp name="Referer" elementType="Header">
-                        <stringProp name="Header.name">Referer</stringProp>
-                        <stringProp name="Header.value">http://${env}/login</stringProp>
-                      </elementProp>
-                      <elementProp name="Accept-Language" elementType="Header">
-                        <stringProp name="Header.name">Accept-Language</stringProp>
-                        <stringProp name="Header.value">en-US,en;q=0.5</stringProp>
-                      </elementProp>
-                      <elementProp name="Content-Type" elementType="Header">
-                        <stringProp name="Header.name">Content-Type</stringProp>
-                        <stringProp name="Header.value">application/x-www-form-urlencoded</stringProp>
-                      </elementProp>
-                      <elementProp name="Accept-Encoding" elementType="Header">
-                        <stringProp name="Header.name">Accept-Encoding</stringProp>
-                        <stringProp name="Header.value">gzip, deflate</stringProp>
-                      </elementProp>
-                      <elementProp name="Accept" elementType="Header">
-                        <stringProp name="Header.name">Accept</stringProp>
-                        <stringProp name="Header.value">text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8</stringProp>
-                      </elementProp>
-                      <elementProp name="" elementType="Header">
-                        <stringProp name="Header.name">Cookie</stringProp>
-                        <stringProp name="Header.value">PHPSESSID=${session}</stringProp>
-                      </elementProp>
-                    </collectionProp>
-                  </HeaderManager>
-                  <hashTree/>
-                  <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="Regular Expression Extractor" enabled="false">
-                    <stringProp name="RegexExtractor.useHeaders">request_headers</stringProp>
-                    <stringProp name="RegexExtractor.refname">session</stringProp>
-                    <stringProp name="RegexExtractor.regex">PHPSESSID=(\w+)?</stringProp>
-                    <stringProp name="RegexExtractor.template">$1$</stringProp>
-                    <stringProp name="RegexExtractor.default"></stringProp>
-                    <stringProp name="RegexExtractor.match_number">1</stringProp>
-                    <boolProp name="RegexExtractor.default_empty_value">true</boolProp>
-                  </RegexExtractor>
-                  <hashTree/>
-                  <BeanShellPostProcessor guiclass="TestBeanGUI" testclass="BeanShellPostProcessor" testname="BeanShell PostProcessor" enabled="false">
-                    <boolProp name="resetInterpreter">false</boolProp>
-                    <stringProp name="parameters"></stringProp>
-                    <stringProp name="filename"></stringProp>
-                    <stringProp name="script">import java.util.Random;
-
-String[] arr = props.getObject(&quot;session_array&quot;);
-String new_str= vars.get(&quot;session&quot;);
-int random_number = (int) (Math.random() * 10);
-a[random_number] = new_str;
-props.putObject(&quot;session_array&quot;, arr);</stringProp>
-                  </BeanShellPostProcessor>
-                  <hashTree/>
-                  <BeanShellPreProcessor guiclass="TestBeanGUI" testclass="BeanShellPreProcessor" testname="BeanShell PreProcessor" enabled="true">
-                    <boolProp name="resetInterpreter">false</boolProp>
-                    <stringProp name="parameters"></stringProp>
-                    <stringProp name="filename"></stringProp>
-                    <stringProp name="script">props.put(&quot;session_id&quot;, vars.get(&quot;session&quot;));</stringProp>
-                  </BeanShellPreProcessor>
+                    <stringProp name="cacheKey">77ade9cb-9bd8-43bf-b652-965ebc96ff38</stringProp>
+                    <stringProp name="script">props.get(&quot;sessions_array&quot;).add(vars.get(&quot;session&quot;));</stringProp>
+                  </JSR223PreProcessor>
                   <hashTree/>
                 </hashTree>
               </hashTree>
-              <DebugSampler guiclass="TestBeanGUI" testclass="DebugSampler" testname="Debug Sampler" enabled="true">
-                <boolProp name="displayJMeterProperties">true</boolProp>
-                <boolProp name="displayJMeterVariables">true</boolProp>
-                <boolProp name="displaySystemProperties">true</boolProp>
-              </DebugSampler>
-              <hashTree/>
             </hashTree>
             <ThroughputController guiclass="ThroughputControllerGui" testclass="ThroughputController" testname="UA_logout = 1%" enabled="true">
               <intProp name="ThroughputController.style">1</intProp>
@@ -9388,24 +9226,6 @@ props.putObject(&quot;session_array&quot;, arr);</stringProp>
                     </collectionProp>
                   </HeaderManager>
                   <hashTree/>
-                  <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="Regular Expression Extractor" enabled="false">
-                    <stringProp name="RegexExtractor.useHeaders">request_headers</stringProp>
-                    <stringProp name="RegexExtractor.refname">session_for_remove</stringProp>
-                    <stringProp name="RegexExtractor.regex">PHPSESSID=(\w+)?</stringProp>
-                    <stringProp name="RegexExtractor.template">$1$</stringProp>
-                    <stringProp name="RegexExtractor.default"></stringProp>
-                    <stringProp name="RegexExtractor.match_number">1</stringProp>
-                    <boolProp name="RegexExtractor.default_empty_value">true</boolProp>
-                  </RegexExtractor>
-                  <hashTree/>
-                  <BeanShellPostProcessor guiclass="TestBeanGUI" testclass="BeanShellPostProcessor" testname="BeanShell PostProcessor" enabled="false">
-                    <boolProp name="resetInterpreter">false</boolProp>
-                    <stringProp name="parameters"></stringProp>
-                    <stringProp name="filename"></stringProp>
-                    <stringProp name="script">//props.get(&quot;sessions_array&quot;).remove(vars.get(&quot;session_for_remove&quot;));
-props.get(&quot;sessions_array&quot;).remove(vars.get(&quot;session_for_remove&quot;));</stringProp>
-                  </BeanShellPostProcessor>
-                  <hashTree/>
                   <JSR223PreProcessor guiclass="TestBeanGUI" testclass="JSR223PreProcessor" testname="JSR223 PreProcessor" enabled="true">
                     <stringProp name="scriptLanguage">java</stringProp>
                     <stringProp name="parameters"></stringProp>
@@ -9415,12 +9235,6 @@ props.get(&quot;sessions_array&quot;).remove(vars.get(&quot;session_for_remove&q
                   </JSR223PreProcessor>
                   <hashTree/>
                 </hashTree>
-                <DebugSampler guiclass="TestBeanGUI" testclass="DebugSampler" testname="Debug Sampler" enabled="false">
-                  <boolProp name="displayJMeterProperties">true</boolProp>
-                  <boolProp name="displayJMeterVariables">true</boolProp>
-                  <boolProp name="displaySystemProperties">true</boolProp>
-                </DebugSampler>
-                <hashTree/>
               </hashTree>
             </hashTree>
             <ThroughputController guiclass="ThroughputControllerGui" testclass="ThroughputController" testname="UA_myprofile_page = 33%" enabled="true">
@@ -9683,23 +9497,11 @@ props.get(&quot;sessions_array&quot;).remove(vars.get(&quot;session_for_remove&q
                   </FloatProperty>
                 </ThroughputController>
                 <hashTree>
-                  <BeanShellSampler guiclass="BeanShellSamplerGui" testclass="BeanShellSampler" testname="BeanShell Sampler" enabled="false">
-                    <stringProp name="BeanShellSampler.query">import tools.JMeterTools; //importing the package and class
-JMeterTools jt = new JMeterTools(); //Initialing an object
-double num1 = Double.parseDouble(vars.get(&quot;rateMin&quot;)); //Reading one of the Jmeter variable
-double num2 = Double.parseDouble(vars.get(&quot;rateMax&quot;)); //Reading one of the Jmeter variable
-num = jt.randInt(num1, num2); //Calling a method of jmetertools class.
-vars.put(&quot;randomRate&quot;, num.toString()); //Writing a value into Jmeter variable</stringProp>
-                    <stringProp name="BeanShellSampler.filename"></stringProp>
-                    <stringProp name="BeanShellSampler.parameters"></stringProp>
-                    <boolProp name="BeanShellSampler.resetInterpreter">true</boolProp>
-                  </BeanShellSampler>
-                  <hashTree/>
                   <JSR223PreProcessor guiclass="TestBeanGUI" testclass="JSR223PreProcessor" testname="JSR223 PreProcessor" enabled="true">
-                    <stringProp name="scriptLanguage">groovy</stringProp>
+                    <stringProp name="scriptLanguage">java</stringProp>
                     <stringProp name="parameters">${rateMin} ${rateMax}</stringProp>
                     <stringProp name="filename"></stringProp>
-                    <stringProp name="cacheKey"></stringProp>
+                    <stringProp name="cacheKey">d80bfeb3-f427-4e4e-84ab-548e20e32f30</stringProp>
                     <stringProp name="script">double num1 = Double.parseDouble(args[0]); //Reading one of the Jmeter variable
 double num2 = Double.parseDouble(args[1]); //Reading one of the Jmeter variable
 double random = new Random().nextDouble();
@@ -9869,22 +9671,13 @@ vars.put(&quot;randomRate&quot;, result.toString()); //Writing a value into Jmet
                         </collectionProp>
                       </HeaderManager>
                       <hashTree/>
-                      <BeanShellPreProcessor guiclass="TestBeanGUI" testclass="BeanShellPreProcessor" testname="BeanShell PreProcessor" enabled="false">
-                        <boolProp name="resetInterpreter">false</boolProp>
+                      <JSR223PreProcessor guiclass="TestBeanGUI" testclass="JSR223PreProcessor" testname="JSR223 PreProcessor" enabled="true">
+                        <stringProp name="scriptLanguage">java</stringProp>
                         <stringProp name="parameters"></stringProp>
                         <stringProp name="filename"></stringProp>
-                        <stringProp name="script">ArrayList ses_arr = props.get(&quot;sessions_array&quot;);
-String ses = ses_arr.get(0);
-
-props.put(&quot;ses&quot;, ses);</stringProp>
-                      </BeanShellPreProcessor>
-                      <hashTree/>
-                      <BeanShellPreProcessor guiclass="TestBeanGUI" testclass="BeanShellPreProcessor" testname="BeanShell PreProcessor" enabled="true">
-                        <boolProp name="resetInterpreter">false</boolProp>
-                        <stringProp name="parameters"></stringProp>
-                        <stringProp name="filename"></stringProp>
-                        <stringProp name="script">vars.put(&quot;sess_id&quot;, props.get(&quot;session_id&quot;));</stringProp>
-                      </BeanShellPreProcessor>
+                        <stringProp name="cacheKey">73e04b45-8c1e-40fd-a642-5c884cbf0b06</stringProp>
+                        <stringProp name="script">vars.put(&quot;sess_id&quot;, vars.get(&quot;sess_for_remove&quot;));</stringProp>
+                      </JSR223PreProcessor>
                       <hashTree/>
                     </hashTree>
                   </hashTree>
@@ -10391,14 +10184,14 @@ props.put(&quot;ses&quot;, ses);</stringProp>
                       </collectionProp>
                     </HeaderManager>
                     <hashTree/>
-                    <BeanShellPostProcessor guiclass="TestBeanGUI" testclass="BeanShellPostProcessor" testname="BeanShell PostProcessor" enabled="true">
-                      <stringProp name="filename"></stringProp>
+                    <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="JSR223 PostProcessor" enabled="true">
+                      <stringProp name="scriptLanguage">java</stringProp>
                       <stringProp name="parameters"></stringProp>
-                      <boolProp name="resetInterpreter">false</boolProp>
+                      <stringProp name="filename"></stringProp>
+                      <stringProp name="cacheKey">4a84134d-f983-4079-b204-299880d4a667</stringProp>
                       <stringProp name="script">response = prev.getResponseDataAsString();
-vars.put(&quot;test&quot;, response);
-</stringProp>
-                    </BeanShellPostProcessor>
+vars.put(&quot;test&quot;, response);</stringProp>
+                    </JSR223PostProcessor>
                     <hashTree/>
                   </hashTree>
                 </hashTree>
@@ -10513,13 +10306,6 @@ vars.put(&quot;test&quot;, response);
        
        vars.put(&quot;randomId&quot;, a[random_number]);</stringProp>
                     </JSR223PreProcessor>
-                    <hashTree/>
-                    <DebugPostProcessor guiclass="TestBeanGUI" testclass="DebugPostProcessor" testname="Debug PostProcessor" enabled="false">
-                      <boolProp name="displayJMeterProperties">false</boolProp>
-                      <boolProp name="displayJMeterVariables">true</boolProp>
-                      <boolProp name="displaySamplerProperties">true</boolProp>
-                      <boolProp name="displaySystemProperties">false</boolProp>
-                    </DebugPostProcessor>
                     <hashTree/>
                   </hashTree>
                   <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="/message_send_in_search" enabled="true">
@@ -10763,20 +10549,7 @@ vars.put(&quot;test&quot;, response);
                         <stringProp name="SUBJECT">BODY</stringProp>
                       </com.atlantbh.jmeter.plugins.jsonutils.jsonpathextractor.JSONPathExtractor>
                       <hashTree/>
-                      <DebugPostProcessor guiclass="TestBeanGUI" testclass="DebugPostProcessor" testname="Debug PostProcessor" enabled="false">
-                        <boolProp name="displayJMeterProperties">false</boolProp>
-                        <boolProp name="displayJMeterVariables">true</boolProp>
-                        <boolProp name="displaySamplerProperties">true</boolProp>
-                        <boolProp name="displaySystemProperties">false</boolProp>
-                      </DebugPostProcessor>
-                      <hashTree/>
                     </hashTree>
-                    <DebugSampler guiclass="TestBeanGUI" testclass="DebugSampler" testname="Debug Sampler" enabled="false">
-                      <boolProp name="displayJMeterProperties">false</boolProp>
-                      <boolProp name="displayJMeterVariables">true</boolProp>
-                      <boolProp name="displaySystemProperties">false</boolProp>
-                    </DebugSampler>
-                    <hashTree/>
                   </hashTree>
                 </hashTree>
               </hashTree>
@@ -11237,166 +11010,6 @@ vars.put(&quot;test&quot;, response);
               </hashTree>
             </hashTree>
           </hashTree>
-          <RecordingController guiclass="RecordController" testclass="RecordingController" testname="Recording Controller" enabled="false"/>
-          <hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="18 /profile/avatar" enabled="true">
-              <elementProp name="HTTPsampler.Files" elementType="HTTPFileArgs">
-                <collectionProp name="HTTPFileArgs.files">
-                  <elementProp name="avatar.jpg" elementType="HTTPFileArg">
-                    <stringProp name="File.path">avatar.jpg</stringProp>
-                    <stringProp name="File.paramname">image</stringProp>
-                    <stringProp name="File.mimetype">image/jpeg</stringProp>
-                  </elementProp>
-                </collectionProp>
-              </elementProp>
-              <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true">
-                <collectionProp name="Arguments.arguments">
-                  <elementProp name="upload" elementType="HTTPArgument">
-                    <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                    <stringProp name="Argument.name">upload</stringProp>
-                    <stringProp name="Argument.value"></stringProp>
-                    <stringProp name="Argument.metadata">=</stringProp>
-                    <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                  </elementProp>
-                </collectionProp>
-              </elementProp>
-              <stringProp name="HTTPSampler.domain">${env}</stringProp>
-              <stringProp name="HTTPSampler.port">${rateMin}</stringProp>
-              <stringProp name="HTTPSampler.connect_timeout"></stringProp>
-              <stringProp name="HTTPSampler.response_timeout"></stringProp>
-              <stringProp name="HTTPSampler.protocol">${public_protocol}</stringProp>
-              <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-              <stringProp name="HTTPSampler.path">/profile/avatar</stringProp>
-              <stringProp name="HTTPSampler.method">POST</stringProp>
-              <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-              <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-              <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-              <boolProp name="HTTPSampler.DO_MULTIPART_POST">true</boolProp>
-              <boolProp name="HTTPSampler.BROWSER_COMPATIBLE_MULTIPART">true</boolProp>
-              <boolProp name="HTTPSampler.monitor">false</boolProp>
-              <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
-              <stringProp name="TestPlan.comments">Detected the start of a redirect chain</stringProp>
-            </HTTPSamplerProxy>
-            <hashTree>
-              <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager" enabled="true">
-                <collectionProp name="HeaderManager.headers">
-                  <elementProp name="Referer" elementType="Header">
-                    <stringProp name="Header.name">Referer</stringProp>
-                    <stringProp name="Header.value">${public_protocol}://${env}/profile</stringProp>
-                  </elementProp>
-                  <elementProp name="Accept-Language" elementType="Header">
-                    <stringProp name="Header.name">Accept-Language</stringProp>
-                    <stringProp name="Header.value">en-us,en;q=${rateMin}.8,ru-ru;q=${rateMin}.${rateMax},ru;q=${rateMin}.3</stringProp>
-                  </elementProp>
-                  <elementProp name="Accept-Encoding" elementType="Header">
-                    <stringProp name="Header.name">Accept-Encoding</stringProp>
-                    <stringProp name="Header.value">gzip, deflate</stringProp>
-                  </elementProp>
-                  <elementProp name="User-Agent" elementType="Header">
-                    <stringProp name="Header.name">User-Agent</stringProp>
-                    <stringProp name="Header.value">Mozilla/${rateMax}.${rateMin} (Windows NT 6.3; WOW64; rv:33.${rateMin}) Gecko/2${rateMin}1${rateMin}${rateMin}1${rateMin}1 Firefox/33.${rateMin}</stringProp>
-                  </elementProp>
-                  <elementProp name="Accept" elementType="Header">
-                    <stringProp name="Header.name">Accept</stringProp>
-                    <stringProp name="Header.value">text/html,application/xhtml+xml,application/xml;q=${rateMin}.9,*/*;q=${rateMin}.8</stringProp>
-                  </elementProp>
-                </collectionProp>
-              </HeaderManager>
-              <hashTree/>
-            </hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="19 /profile" enabled="true">
-              <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true">
-                <collectionProp name="Arguments.arguments"/>
-              </elementProp>
-              <stringProp name="HTTPSampler.domain">${env}</stringProp>
-              <stringProp name="HTTPSampler.port">${rateMin}</stringProp>
-              <stringProp name="HTTPSampler.connect_timeout"></stringProp>
-              <stringProp name="HTTPSampler.response_timeout"></stringProp>
-              <stringProp name="HTTPSampler.protocol">${public_protocol}</stringProp>
-              <stringProp name="HTTPSampler.contentEncoding">UTF-8</stringProp>
-              <stringProp name="HTTPSampler.path">/profile</stringProp>
-              <stringProp name="HTTPSampler.method">GET</stringProp>
-              <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-              <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-              <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-              <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-              <boolProp name="HTTPSampler.monitor">false</boolProp>
-              <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
-            </HTTPSamplerProxy>
-            <hashTree>
-              <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager" enabled="true">
-                <collectionProp name="HeaderManager.headers">
-                  <elementProp name="Referer" elementType="Header">
-                    <stringProp name="Header.name">Referer</stringProp>
-                    <stringProp name="Header.value">${public_protocol}://${env}/profile</stringProp>
-                  </elementProp>
-                  <elementProp name="Accept-Language" elementType="Header">
-                    <stringProp name="Header.name">Accept-Language</stringProp>
-                    <stringProp name="Header.value">en-us,en;q=${rateMin}.8,ru-ru;q=${rateMin}.${rateMax},ru;q=${rateMin}.3</stringProp>
-                  </elementProp>
-                  <elementProp name="Accept-Encoding" elementType="Header">
-                    <stringProp name="Header.name">Accept-Encoding</stringProp>
-                    <stringProp name="Header.value">gzip, deflate</stringProp>
-                  </elementProp>
-                  <elementProp name="User-Agent" elementType="Header">
-                    <stringProp name="Header.name">User-Agent</stringProp>
-                    <stringProp name="Header.value">Mozilla/${rateMax}.${rateMin} (Windows NT 6.3; WOW64; rv:33.${rateMin}) Gecko/2${rateMin}1${rateMin}${rateMin}1${rateMin}1 Firefox/33.${rateMin}</stringProp>
-                  </elementProp>
-                  <elementProp name="Accept" elementType="Header">
-                    <stringProp name="Header.name">Accept</stringProp>
-                    <stringProp name="Header.value">text/html,application/xhtml+xml,application/xml;q=${rateMin}.9,*/*;q=${rateMin}.8</stringProp>
-                  </elementProp>
-                </collectionProp>
-              </HeaderManager>
-              <hashTree/>
-            </hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="2${rateMin} /upload/14883726${rateMax}${rateMin}-avatar.jpg" enabled="true">
-              <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true">
-                <collectionProp name="Arguments.arguments"/>
-              </elementProp>
-              <stringProp name="HTTPSampler.domain">${env}</stringProp>
-              <stringProp name="HTTPSampler.port">${rateMin}</stringProp>
-              <stringProp name="HTTPSampler.connect_timeout"></stringProp>
-              <stringProp name="HTTPSampler.response_timeout"></stringProp>
-              <stringProp name="HTTPSampler.protocol">${public_protocol}</stringProp>
-              <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-              <stringProp name="HTTPSampler.path">/upload/14883726${rateMax}${rateMin}-avatar.jpg</stringProp>
-              <stringProp name="HTTPSampler.method">GET</stringProp>
-              <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-              <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-              <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-              <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-              <boolProp name="HTTPSampler.monitor">false</boolProp>
-              <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
-            </HTTPSamplerProxy>
-            <hashTree>
-              <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager" enabled="true">
-                <collectionProp name="HeaderManager.headers">
-                  <elementProp name="Referer" elementType="Header">
-                    <stringProp name="Header.name">Referer</stringProp>
-                    <stringProp name="Header.value">${public_protocol}://${env}/profile</stringProp>
-                  </elementProp>
-                  <elementProp name="Accept-Language" elementType="Header">
-                    <stringProp name="Header.name">Accept-Language</stringProp>
-                    <stringProp name="Header.value">en-us,en;q=${rateMin}.8,ru-ru;q=${rateMin}.${rateMax},ru;q=${rateMin}.3</stringProp>
-                  </elementProp>
-                  <elementProp name="Accept-Encoding" elementType="Header">
-                    <stringProp name="Header.name">Accept-Encoding</stringProp>
-                    <stringProp name="Header.value">gzip, deflate</stringProp>
-                  </elementProp>
-                  <elementProp name="User-Agent" elementType="Header">
-                    <stringProp name="Header.name">User-Agent</stringProp>
-                    <stringProp name="Header.value">Mozilla/${rateMax}.${rateMin} (Windows NT 6.3; WOW64; rv:33.${rateMin}) Gecko/2${rateMin}1${rateMin}${rateMin}1${rateMin}1 Firefox/33.${rateMin}</stringProp>
-                  </elementProp>
-                  <elementProp name="Accept" elementType="Header">
-                    <stringProp name="Header.name">Accept</stringProp>
-                    <stringProp name="Header.value">image/png,image/*;q=${rateMin}.8,*/*;q=${rateMin}.${rateMax}</stringProp>
-                  </elementProp>
-                </collectionProp>
-              </HeaderManager>
-              <hashTree/>
-            </hashTree>
-          </hashTree>
         </hashTree>
         <ThroughputController guiclass="ThroughputControllerGui" testclass="ThroughputController" testname="Public Area = 10%" enabled="false">
           <intProp name="ThroughputController.style">1</intProp>
@@ -11414,6 +11027,13 @@ vars.put(&quot;test&quot;, response);
             <boolProp name="TransactionController.parent">false</boolProp>
           </TransactionController>
           <hashTree>
+            <CookieManager guiclass="CookiePanel" testclass="CookieManager" testname="HTTP Cookie Manager" enabled="true">
+              <collectionProp name="CookieManager.cookies"/>
+              <boolProp name="CookieManager.clearEachIteration">false</boolProp>
+              <stringProp name="CookieManager.policy">standard</stringProp>
+              <stringProp name="CookieManager.implementation">org.apache.jmeter.protocol.http.control.HC4CookieHandler</stringProp>
+            </CookieManager>
+            <hashTree/>
             <ConfigTestElement guiclass="HttpDefaultsGui" testclass="ConfigTestElement" testname="HTTP Request Defaults" enabled="true">
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
                 <collectionProp name="Arguments.arguments"/>
